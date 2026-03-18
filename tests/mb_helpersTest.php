@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 class HelpersTest extends PHPUnit_Framework_TestCase
 {
-    function test_mb_ucwords()
+    public function test_mb_ucwords()
     {
         $this->assertEquals('Åäö', mb_ucwords('åäö'));
         $this->assertEquals('Åäö Öäå', mb_ucwords('åäö öäå'));
@@ -12,7 +14,7 @@ class HelpersTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(ucwords('H.G. WELLS'), mb_ucwords('H.G. WELLS'));
     }
 
-    function test_mb_ucfirst()
+    public function test_mb_ucfirst()
     {
         $this->assertEquals('Åäö', mb_ucfirst('åäö'));
         $this->assertEquals('Åäö öäå', mb_ucfirst('åäö öäå'));
@@ -22,7 +24,7 @@ class HelpersTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(ucfirst('H.G. WELLS'), mb_ucfirst('H.G. WELLS'));
     }
 
-    function test_mb_strrev()
+    public function test_mb_strrev()
     {
         $this->assertEquals('öäå', mb_strrev('åäö'));
         $this->assertEquals('öäÅ', mb_strrev('Åäö'));
@@ -30,7 +32,7 @@ class HelpersTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(strrev('bobby'), mb_strrev('bobby'));
     }
 
-    function test_mb_str_pad()
+    public function test_mb_str_pad()
     {
         $this->assertEquals('a   ', mb_str_pad('a', 4));
         $this->assertEquals('ö   ', mb_str_pad('ö', 4));
@@ -38,9 +40,9 @@ class HelpersTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(str_pad('a', 4), mb_str_pad('a', 4));
     }
 
-    function test_mb_count_chars()
+    public function test_mb_count_chars()
     {
-        $this->assertEquals(array('ö' => 1, 'b' => 2), mb_count_chars('böb', 1));
+        $this->assertEquals(['ö' => 1, 'b' => 2], mb_count_chars('böb', 1));
         $this->assertEquals('bö', mb_count_chars('böb', 3));
         $this->assertEquals(count_chars('bobby', 3), count_chars('bobby', 3));
     }
@@ -48,16 +50,16 @@ class HelpersTest extends PHPUnit_Framework_TestCase
     /**
      * @expectedException Exception
      */
-    function test_mb_count_chars_unsupported_mode()
+    public function test_mb_count_chars_unsupported_mode()
     {
         mb_count_chars('böb', 2);
     }
 
-    function test_mb_str_split()
+    public function test_mb_str_split()
     {
-        $this->assertEquals(array('b', 'ö', 'b'), mb_str_split('böb'));
+        $this->assertEquals(['b', 'ö', 'b'], mb_str_split('böb'));
 
-        $this->assertEquals(array('bö', 'b'), mb_str_split('böb', 2));
+        $this->assertEquals(['bö', 'b'], mb_str_split('böb', 2));
 
         for ($i = 1; $i < 10; $i++) {
             $this->assertEquals(str_split('bob', $i), mb_str_split('bob', $i));
@@ -66,15 +68,15 @@ class HelpersTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(str_split('bobby'), mb_str_split('bobby'));
         $this->assertEquals(str_split(''), mb_str_split(''));
 
-        foreach(array(0,-1) as $length) {
-          $exception_thrown = false;
-          try {
-             mb_str_split('foo', $length);
-          } catch (Exception $e) {
-             $exception_thrown = true;
-             $this->assertEquals('The length of each segment must be greater than zero', $e->getMessage());
-          }
-          $this->assertTrue($exception_thrown);
+        foreach ([0,-1] as $length) {
+            $exception_thrown = false;
+            try {
+                mb_str_split('foo', $length);
+            } catch (Exception $e) {
+                $exception_thrown = true;
+                $this->assertEquals('The length of each segment must be greater than zero', $e->getMessage());
+            }
+            $this->assertTrue($exception_thrown);
         }
     }
 

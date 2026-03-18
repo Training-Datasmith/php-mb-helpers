@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 if (!function_exists('mb_ucwords')) {
     /**
      * @param string $str
@@ -87,7 +89,7 @@ if (!function_exists('mb_count_chars')) {
     function mb_count_chars($string, $mode, $encoding = 'UTF-8')
     {
         $l = mb_strlen($string, $encoding);
-        $unique = array();
+        $unique = [];
         for ($i = 0; $i < $l; $i++) {
             $char = mb_substr($string, $i, 1, $encoding);
             if (!array_key_exists($char, $unique)) {
@@ -126,14 +128,14 @@ if (!function_exists('mb_str_split')) {
             throw new \Exception('The length of each segment must be greater than zero');
         }
 
-        $ret = array();
+        $ret = [];
         $len = mb_strlen($string, $encoding);
         for ($i = 0; $i < $len; $i += $split_length) {
             $ret[] = mb_substr($string, $i, $split_length, $encoding);
         }
         if (!$ret) {
             // behave like str_split() on empty input
-            return array("");
+            return [''];
         }
 
         return $ret;
