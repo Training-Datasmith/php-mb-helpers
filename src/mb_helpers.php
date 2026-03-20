@@ -3,9 +3,12 @@
 declare (strict_types=1);
 if (!function_exists('mb_ucwords')) {
     /**
-     * @param string $str
-     * @param string $encoding
-     * @return string Uc Words
+     * Capitalize the first letter of each word in a multibyte string.
+     *
+     * @param string $str      The input multibyte string.
+     * @param string $encoding Character encoding of $str. Defaults to UTF-8.
+     * @return string The string with each word's first character uppercased.
+     * @complexity O(n) where n is the number of multibyte characters in $str.
      */
     function mb_ucwords($str, $encoding = 'UTF-8')
     {
@@ -27,9 +30,11 @@ if (!function_exists('mb_ucwords')) {
 }
 if (!function_exists('mb_ucfirst')) {
     /**
-     * @param string $str
-     * @param string $encoding
-     * @return string Uc first
+     * Capitalize the first character of a multibyte string.
+     *
+     * @param string $str      The input multibyte string.
+     * @param string $encoding Character encoding of $str. Defaults to UTF-8.
+     * @return string The string with its first character uppercased.
      */
     function mb_ucfirst($str, $encoding = 'UTF-8')
     {
@@ -40,9 +45,11 @@ if (!function_exists('mb_ucfirst')) {
 }
 if (!function_exists('mb_strrev')) {
     /**
-     * @param string $str
-     * @param string $encoding
-     * @return string
+     * Reverse a multibyte string character by character.
+     *
+     * @param string $str      The input multibyte string to reverse.
+     * @param string $encoding Character encoding of $str. Defaults to UTF-8.
+     * @return string The reversed string with multibyte characters preserved intact.
      */
     function mb_strrev($str, $encoding = 'UTF-8')
     {
@@ -52,12 +59,14 @@ if (!function_exists('mb_strrev')) {
 }
 if (!function_exists('mb_str_pad')) {
     /**
-     * @param string $input
-     * @param int $pad_length
-     * @param string $pad_string
-     * @param int $pad_type
-     * @param string $encoding
-     * @return string
+     * Pad a multibyte string to a specified length using a pad string.
+     *
+     * @param string $input      The string to pad.
+     * @param int    $pad_length Desired total length of the padded string in multibyte characters.
+     * @param string $pad_string The string to pad with. Defaults to a single space.
+     * @param int    $pad_type   STR_PAD_RIGHT, STR_PAD_LEFT, or STR_PAD_BOTH.
+     * @param string $encoding   Character encoding. Defaults to UTF-8.
+     * @return string The padded string.
      */
     function mb_str_pad($input, $pad_length, $pad_string = ' ', $pad_type = STR_PAD_RIGHT, $encoding = 'UTF-8')
     {
@@ -67,11 +76,14 @@ if (!function_exists('mb_str_pad')) {
 }
 if (!function_exists('mb_count_chars')) {
     /**
-     * @param string $string
-     * @param int $mode only mode 1 and 3 is available
-     * @param string $encoding
-     * @return array|string
-     * @throws \Exception
+     * Count occurrences of each unique character in a multibyte string.
+     *
+     * @param string $string   The input multibyte string to analyze.
+     * @param int    $mode     Supported modes: 1 = associative array of char => count; 3 = string of unique characters.
+     * @param string $encoding Character encoding. Defaults to UTF-8.
+     * @return array<string,int>|string Mode 1 returns an array; mode 3 returns a string of unique characters.
+     * @throws \Exception When an unsupported mode is requested.
+     * @complexity O(n) where n is the number of multibyte characters in $string.
      */
     function mb_count_chars($string, $mode, $encoding = 'UTF-8')
     {
@@ -99,11 +111,13 @@ if (!function_exists('mb_count_chars')) {
 }
 if (!function_exists('mb_str_split')) {
     /**
-     * @param string $string
-     * @param int $split_length
-     * @param string $encoding
-     * @return array
-     * @throws Exception
+     * Split a multibyte string into an array of chunks of given length.
+     *
+     * @param string $string       The multibyte string to split.
+     * @param int    $split_length Number of characters per chunk. Must be >= 1.
+     * @param string $encoding     Character encoding. Defaults to UTF-8.
+     * @return string[] Array of string chunks; returns [''] on empty input (matching str_split() behaviour).
+     * @throws \Exception When $split_length is less than 1.
      */
     function mb_str_split($string, $split_length = 1, $encoding = 'UTF-8')
     {
