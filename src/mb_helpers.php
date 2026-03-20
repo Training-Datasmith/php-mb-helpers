@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 if (!function_exists('mb_ucwords')) {
     /**
      * @param string $str
@@ -11,27 +10,21 @@ if (!function_exists('mb_ucwords')) {
     function mb_ucwords($str, $encoding = 'UTF-8')
     {
         $upper = true;
-
         $res = '';
-
         for ($i = 0; $i < mb_strlen($str, $encoding); $i++) {
             $c = mb_substr($str, $i, 1, $encoding);
-
             if ($upper) {
                 $c = mb_convert_case($c, MB_CASE_UPPER, $encoding);
                 $upper = false;
             }
-
             if ($c == ' ') {
                 $upper = true;
             }
-
             $res .= $c;
         }
         return $res;
     }
 }
-
 if (!function_exists('mb_ucfirst')) {
     /**
      * @param string $str
@@ -40,13 +33,11 @@ if (!function_exists('mb_ucfirst')) {
      */
     function mb_ucfirst($str, $encoding = 'UTF-8')
     {
-        $firstLetter = mb_substr($str, 0, 1, $encoding);
+        $first_letter = mb_substr($str, 0, 1, $encoding);
         $rest = mb_substr($str, 1, mb_strlen($str, $encoding), $encoding);
-
-        return mb_strtoupper($firstLetter, $encoding) . $rest;
+        return mb_strtoupper($first_letter, $encoding) . $rest;
     }
 }
-
 if (!function_exists('mb_strrev')) {
     /**
      * @param string $str
@@ -56,11 +47,9 @@ if (!function_exists('mb_strrev')) {
     function mb_strrev($str, $encoding = 'UTF-8')
     {
         $str = mb_convert_encoding($str, 'UTF-16BE', $encoding);
-
         return mb_convert_encoding(strrev($str), $encoding, 'UTF-16LE');
     }
 }
-
 if (!function_exists('mb_str_pad')) {
     /**
      * @param string $input
@@ -73,11 +62,9 @@ if (!function_exists('mb_str_pad')) {
     function mb_str_pad($input, $pad_length, $pad_string = ' ', $pad_type = STR_PAD_RIGHT, $encoding = 'UTF-8')
     {
         $diff = strlen($input) - mb_strlen($input, $encoding);
-
         return str_pad($input, $pad_length + $diff, $pad_string, $pad_type);
     }
 }
-
 if (!function_exists('mb_count_chars')) {
     /**
      * @param string $string
@@ -97,11 +84,9 @@ if (!function_exists('mb_count_chars')) {
             }
             $unique[$char]++;
         }
-
         if ($mode == 1) {
             return $unique;
         }
-
         if ($mode == 3) {
             $res = '';
             foreach ($unique as $index => $count) {
@@ -109,11 +94,9 @@ if (!function_exists('mb_count_chars')) {
             }
             return $res;
         }
-
         throw new \Exception('unsupported mode ' . $mode);
     }
 }
-
 if (!function_exists('mb_str_split')) {
     /**
      * @param string $string
@@ -127,7 +110,6 @@ if (!function_exists('mb_str_split')) {
         if ($split_length <= 0) {
             throw new \Exception('The length of each segment must be greater than zero');
         }
-
         $ret = [];
         $len = mb_strlen($string, $encoding);
         for ($i = 0; $i < $len; $i += $split_length) {
@@ -137,7 +119,6 @@ if (!function_exists('mb_str_split')) {
             // behave like str_split() on empty input
             return [''];
         }
-
         return $ret;
     }
 }
