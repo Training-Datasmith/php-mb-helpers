@@ -1,6 +1,5 @@
 <?php
 
-declare (strict_types=1);
 if (!function_exists('mb_ucwords')) {
     /**
      * Capitalize the first letter of each word in a multibyte string.
@@ -88,7 +87,7 @@ if (!function_exists('mb_count_chars')) {
     function mb_count_chars($string, $mode, $encoding = 'UTF-8')
     {
         $l = mb_strlen($string, $encoding);
-        $unique = [];
+        $unique = array();
         for ($i = 0; $i < $l; $i++) {
             $char = mb_substr($string, $i, 1, $encoding);
             if (!array_key_exists($char, $unique)) {
@@ -116,7 +115,7 @@ if (!function_exists('mb_str_split')) {
      * @param string $string       The multibyte string to split.
      * @param int    $split_length Number of characters per chunk. Must be >= 1.
      * @param string $encoding     Character encoding. Defaults to UTF-8.
-     * @return string[] Array of string chunks; returns [''] on empty input (matching str_split() behaviour).
+     * @return string[] Array of string chunks; returns array('') on empty input (matching str_split() behaviour).
      * @throws \Exception When $split_length is less than 1.
      */
     function mb_str_split($string, $split_length = 1, $encoding = 'UTF-8')
@@ -124,14 +123,14 @@ if (!function_exists('mb_str_split')) {
         if ($split_length <= 0) {
             throw new \Exception('The length of each segment must be greater than zero');
         }
-        $ret = [];
+        $ret = array();
         $len = mb_strlen($string, $encoding);
         for ($i = 0; $i < $len; $i += $split_length) {
             $ret[] = mb_substr($string, $i, $split_length, $encoding);
         }
         if (!$ret) {
             // behave like str_split() on empty input
-            return [''];
+            return array('');
         }
         return $ret;
     }

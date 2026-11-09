@@ -1,8 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
-class HelpersTest extends PHPUnit_Framework_TestCase
+class Helpers_Test extends PHPUnit\Framework\TestCase
 {
     public function test_mb_ucwords()
     {
@@ -42,24 +40,22 @@ class HelpersTest extends PHPUnit_Framework_TestCase
 
     public function test_mb_count_chars()
     {
-        $this->assertEquals(['ö' => 1, 'b' => 2], mb_count_chars('böb', 1));
+        $this->assertEquals(array('ö' => 1, 'b' => 2), mb_count_chars('böb', 1));
         $this->assertEquals('bö', mb_count_chars('böb', 3));
-        $this->assertEquals(count_chars('bobby', 3), count_chars('bobby', 3));
+        $this->assertEquals('boy', mb_count_chars('bobby', 3));
     }
 
-    /**
-     * @expectedException Exception
-     */
     public function test_mb_count_chars_unsupported_mode()
     {
+        $this->expectException(\Exception::class);
         mb_count_chars('böb', 2);
     }
 
     public function test_mb_str_split()
     {
-        $this->assertEquals(['b', 'ö', 'b'], mb_str_split('böb'));
+        $this->assertEquals(array('b', 'ö', 'b'), mb_str_split('böb'));
 
-        $this->assertEquals(['bö', 'b'], mb_str_split('böb', 2));
+        $this->assertEquals(array('bö', 'b'), mb_str_split('böb', 2));
 
         for ($i = 1; $i < 10; $i++) {
             $this->assertEquals(str_split('bob', $i), mb_str_split('bob', $i));
@@ -68,7 +64,7 @@ class HelpersTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(str_split('bobby'), mb_str_split('bobby'));
         $this->assertEquals(str_split(''), mb_str_split(''));
 
-        foreach ([0,-1] as $length) {
+        foreach (array(0, -1) as $length) {
             $exception_thrown = false;
             try {
                 mb_str_split('foo', $length);
@@ -79,5 +75,4 @@ class HelpersTest extends PHPUnit_Framework_TestCase
             $this->assertTrue($exception_thrown);
         }
     }
-
 }

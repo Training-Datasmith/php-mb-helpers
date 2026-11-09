@@ -11,11 +11,6 @@ php:
 script:
   - phpunit --coverage-text --coverage-clover=coverage.clover
 
-# upload coverage file to scrutinizer
-after_script:
-  - wget https://scrutinizer-ci.com/ocular.phar
-  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
-
 before_install:
   - composer self-update
 

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 require_once __DIR__ . '/../src/mb_helpers.php';
 
 // --- mb_ucfirst: Capitalize first character of a multibyte string ---
